@@ -1,0 +1,6 @@
+//- 回复语音消息
+xml
+    include ./common
+    MsgType <![CDATA[voice]]>
+    Voice
+        MediaId !{'<![CDATA['+ extra.mediaId +']]>'}

@@ -1,0 +1,6 @@
+//- - var extra = {content: 'ccccc'}
+//- 回复文本消息
+xml
+    include ./common
+    MsgType <![CDATA[text]]>
+    Content !{'<![CDATA['+ extra.content +']]>'}

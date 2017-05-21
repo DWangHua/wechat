@@ -1,0 +1,10 @@
+//- 回复视频消息
+xml
+    include ./common
+    MsgType <![CDATA[video]]>
+    Video
+        MediaId !{'<![CDATA['+ extra.mediaId +']]>'}
+        if extra.title
+            Title !{'<![CDATA['+ extra.title +']]>'}
+        if extra.desc
+            Description !{'<![CDATA['+ extra.desc +']]>'}

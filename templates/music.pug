@@ -1,0 +1,14 @@
+//- 回复音乐消息
+xml
+    include ./common
+    MsgType <![CDATA[music]]>
+    Music
+        if extra.title
+            Title !{'<![CDATA['+ extra.title +']]>'}
+        if extra.desc
+            Description !{'<![CDATA['+ extra.desc +']]>'}
+        if extra.musicUrl
+            MusicUrl !{'<![CDATA['+ extra.musicUrl +']]>'}
+        if extra.hqMusicUrl
+            HQMusicUrl !{'<![CDATA['+ extra.hqMusicUrl +']]>'}
+        ThumbMediaId !{'<![CDATA['+ extra.mediaId +']]>'}
