@@ -14,7 +14,9 @@ module.exports = {
     },
     formatMessage(result) {
         let message = {};
+        console.log(result);
         if (_.isObject(result)) {
+            console.log('cc');
             let keys = Object.keys(result);
             // 遍历object的属性
             for (var i = 0; i < keys.length; i++) {
