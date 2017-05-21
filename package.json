@@ -1,0 +1,32 @@
+{
+  "name": "wechat-koa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "koa": "^2.2.0",
+    "lodash": "^4.17.4",
+    "pug": "^2.0.0-rc.1",
+    "raw-body": "^2.2.0",
+    "sha1": "^1.1.1",
+    "superagent": "^3.5.2",
+    "xml2js": "^0.4.17"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DWangHua/wechat.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DWangHua/wechat/issues"
+  },
+  "homepage": "https://github.com/DWangHua/wechat#readme"
+}
