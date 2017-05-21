@@ -1,7 +1,11 @@
+const { render } = require('../templates');
+const request = require('superagent');
 const prefix = 'https://api.weixin.qq.com/cgi-bin/';
 const api = {
     // grant_type=client_credential&appid=APPID&secret=APPSECRET
-    token: `${prefix}token`
+    token: `${prefix}token`,
+    // access_token=ACCESS_TOKEN&type=TYPE
+    upload: `${prefix}media/upload`
 };
 
 const wechat = {
@@ -16,7 +20,6 @@ const wechat = {
         if (data) {
             this.accessToken = data.access_token;
             this.accessTokenExpiresIn = data.expires_in;
-            
         }
     },
     async fetchAccessToken() {
@@ -38,6 +41,20 @@ const wechat = {
         }
         
         return data;
+    },
+    async uploadMeterial(type, filePath) {
+        let data = await this.fetchAccessToken();
+        return request
+            .post(api.upload)
+            .accept('json')
+            .type('form')
+            .attach('media', filePath)
+            // .field('access_token', data.access_token)
+            // .field('type', type);
+            .query({
+                access_token: data.access_token,
+                type: type
+            });
     },
     _validAccessToken(data) {
         if (!data || !data.access_token || !data.expires_in) return false;
@@ -61,6 +78,15 @@ const wechat = {
         let expiresIn = now + (data.expires_in - 20) * 1000;
         data.expires_in = expiresIn;
         return data;
+    },
+    async reply(message, locals) {
+        let xml = await render({
+            info: message,
+            type: locals.type,
+            extra: locals.extra,
+            pretty: true
+        });
+        return xml;
     }
 }
 

@@ -13,7 +13,9 @@
     "superagent": "^3.5.2",
     "xml2js": "^0.4.17"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "koa-logger": "^3.0.0"
+  },
   "scripts": {
     "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"

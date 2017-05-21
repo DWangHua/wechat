@@ -4,7 +4,8 @@ const Promise = require('bluebird');
 const request = require('superagent');
 const { wechatUtils, commonUtils } = require('../utils');
 const { wechatModel } = require('../models');
-const {renderTextTpl} = require('../templates');
+const { renderTextTpl } = require('../templates');
+const { weixinService } = require('../services');
 
 module.exports = (opts = {}) => {
     wechatModel.init(opts);
@@ -40,23 +41,14 @@ module.exports = (opts = {}) => {
                 // 格式化 Js
                 let message = await commonUtils.formatMessage(parsedXml.xml);
 
-                console.log(message);
-                if (message.MsgType === 'event') {
-                    if (message.Event === 'subscribe') {
-                        // 时间戳直接在模板中构建
-                        // let now = (new Date()).getTime();
-                        // 获取自动回复的xml
-                        let result = await renderTextTpl({
-                            info: message,
-                            extra: {
-                                content: 'hello 订阅者'
-                            }
-                        });
-                        // console.log(result);
-                        ctx.body = result;
-                        return;
-                    }
-                }
+                ctx.state.message = message;
+                // console.log(message);
+                let locals = await weixinService.handlerMessage(message);
+                let xmlStr = await wechatModel.reply(message, locals);
+                console.log(xmlStr);
+                ctx.body = xmlStr;
+                ctx.status = 200;
+                ctx.type = 'application/xml';
             }
 
             next();
